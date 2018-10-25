@@ -1,28 +1,58 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import ToDoFilters from './components/filter/ToDoFIlters';
+import  ToDoAddFrom from './components/addForm/ToDoAddForm';
+import  ToDoList from './components/list/ToDoList';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    state = {
+        items: [
+            {
+                value: 'Eat',
+                status: 'active'
+            },
+            {
+                value: 'Pray',
+                status: 'active'
+            },
+            {
+                value: 'Love',
+                status: 'done'
+            }
+        ]
+    };
+
+    onAdd = (data)=> {
+        this.setState((state)=> {
+           let oldItems = state.items;
+           let tempResult = oldItems.filter((item)=>{
+               return item.value === data;
+           });
+           if(tempResult.length) {
+               return state
+           } else {
+               let newItems = state.items.push({
+                   value: data,
+               });
+               return {
+                   state : newItems
+               }
+           }
+        });
+        return true;
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <div className={'container'}>
+                    <h1 className={'text-center'}>Todo list</h1>
+                    <ToDoFilters/>
+                    <ToDoAddFrom onAdd={this.onAdd}/>
+                    <ToDoList items={this.state.items} />
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
