@@ -58,12 +58,16 @@ class App extends Component {
         }
     };
 
+    isFiltersVisible = ()=> {
+        return this.state.items.length > 0;
+    };
+
     render() {
         return (
             <div className="App">
                 <div className={'container'}>
                     <h1 className={'text-center'}>Todo list</h1>
-                    <ToDoFilters activeFilter={this.state.activeFilter} setFilter={this.changeFilter}/>
+                    <ToDoFilters activeFilter={this.state.activeFilter} setFilter={this.changeFilter} isVisible={this.isFiltersVisible()}/>
                     <ToDoAddFrom onAdd={this.onAdd}/>
                     <ToDoList items={this.state.items} activeFilter={this.state.activeFilter} changeHandler={this.changeStatus}/>
                 </div>

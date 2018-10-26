@@ -5,7 +5,8 @@ import './style.scss';
 export default class ToDoFIlters extends Component {
     static propTypes = {
         activeFilter: PropTypes.string,
-        setFilter: PropTypes.func
+        setFilter: PropTypes.func,
+        isVisible: PropTypes.bool
     };
     clearFilters = () => {
         this.props.setFilter(null);
@@ -31,11 +32,13 @@ export default class ToDoFIlters extends Component {
     render() {
         return (
             <section>
-                <nav className={'nav'}>
-                    <button className={this.classNames(null)} onClick={this.clearFilters}>All</button>
-                    <button className={this.classNames('done')} onClick={this.setDoneFilter}>Done</button>
-                    <button className={this.classNames('active')} onClick={this.setActiveFilter}>In Progress</button>
-                </nav>
+                {this.props.isVisible &&
+                    <nav className={'nav'}>
+                        <button className={this.classNames(null)} onClick={this.clearFilters}>All</button>
+                        <button className={this.classNames('done')} onClick={this.setDoneFilter}>Done</button>
+                        <button className={this.classNames('active')} onClick={this.setActiveFilter}>In Progress</button>
+                    </nav>
+                }
             </section>
         )
     }
