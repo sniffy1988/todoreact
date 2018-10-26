@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
 import filters from '../../contstants';
-export default class ToDoFIlters extends Component {
+export default class ToDoFilters extends Component {
     static propTypes = {
         activeFilter: PropTypes.string,
         setFilter: PropTypes.func,
