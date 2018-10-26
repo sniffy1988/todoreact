@@ -1,14 +1,40 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import './style.scss';
 
-export default class ToDoFIlters extends Component{
+export default class ToDoFIlters extends Component {
+    static propTypes = {
+        activeFilter: PropTypes.string,
+        setFilter: PropTypes.func
+    };
+    clearFilters = () => {
+        this.props.setFilter(null);
+    };
+
+    setDoneFilter = () => {
+        this.props.setFilter('done');
+    };
+
+    setActiveFilter = () => {
+        this.props.setFilter('active');
+    };
+
+    classNames = (btn) => {
+        let allClasses = 'btn btn-link nav-link';
+        if(this.props.activeFilter === btn) {
+            allClasses += ' active';
+        }
+        return allClasses;
+    };
+
+
     render() {
         return (
             <section>
                 <nav className={'nav'}>
-                    <button className={'btn btn-link nav-link active'}>All</button>
-                    <button className={'btn btn-link nav-link'}>Done</button>
-                    <button className={'btn btn-link nav-link'}>In Progress</button>
+                    <button className={this.classNames(null)} onClick={this.clearFilters}>All</button>
+                    <button className={this.classNames('done')} onClick={this.setDoneFilter}>Done</button>
+                    <button className={this.classNames('active')} onClick={this.setActiveFilter}>In Progress</button>
                 </nav>
             </section>
         )

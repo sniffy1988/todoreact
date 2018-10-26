@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 export default class ToDoList extends Component {
+    state = {};
     static propTypes = {
         items: PropTypes.array,
         activeFilter: PropTypes.string
@@ -22,7 +23,6 @@ export default class ToDoList extends Component {
     }
 
     render() {
-        console.log(this.props.activeFilter);
         return (
             <ul className={'mt-4 todo-list'}>
                 {this.renderTodos(this.props.items)}

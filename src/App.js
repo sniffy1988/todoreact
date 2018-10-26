@@ -29,6 +29,13 @@ class App extends Component {
         });
         return tempResult.length === 0;
     };
+
+    changeFilter = (filter)=> {
+        this.setState({
+            activeFilter: filter
+        })
+    };
+
     onAdd = (data)=> {
         let isUni = this.isUnique(data);
         if(isUni) {
@@ -57,7 +64,7 @@ class App extends Component {
             <div className="App">
                 <div className={'container'}>
                     <h1 className={'text-center'}>Todo list</h1>
-                    <ToDoFilters/>
+                    <ToDoFilters activeFilter={this.state.activeFilter} setFilter={this.changeFilter}/>
                     <ToDoAddFrom onAdd={this.onAdd}/>
                     <ToDoList items={this.state.items} activeFilter={this.state.activeFilter}/>
                 </div>
