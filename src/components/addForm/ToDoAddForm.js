@@ -34,7 +34,7 @@ export default class ToDoAddForm extends Component {
 
     sendToDo = ()=> {
         let result = this.props.onAdd(this.state.todo);
-        if(result) {
+        if(result.result) {
             this.setState({
                 todo: '',
                 isError: false

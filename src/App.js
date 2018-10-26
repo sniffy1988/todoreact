@@ -21,24 +21,33 @@ class App extends Component {
         ]
     };
 
-    onAdd = (data)=> {
-        this.setState((state)=> {
-           let oldItems = state.items;
-           let tempResult = oldItems.filter((item)=>{
-               return item.value === data;
-           });
-           if(tempResult.length) {
-               return state
-           } else {
-               let newItems = state.items.push({
-                   value: data,
-               });
-               return {
-                   state : newItems
-               }
-           }
+    isUnique = (data)=> {
+        let oldItems = this.state.items;
+        let tempResult = oldItems.filter((item)=>{
+            return item.value === data;
         });
-        return true;
+        return tempResult.length === 0;
+    };
+    onAdd = (data)=> {
+        let isUni = this.isUnique(data);
+        if(isUni) {
+            this.setState((state)=> {
+                let newItems = state.items.push({
+                    value: data,
+                });
+                return {
+                    state : newItems
+                }
+            });
+            return {
+                result: true
+            }
+        } else {
+            return {
+                result: false,
+                msg: 'This item already in list'
+            }
+        }
     };
 
     render() {
