@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import ToDoFilters from './components/filter/ToDoFIlters';
-import  ToDoAddFrom from './components/addForm/ToDoAddForm';
+import  ToDoAddForm from './components/addForm/ToDoAddForm';
 import  ToDoList from './components/list/ToDoList';
 
 class App extends Component {
@@ -68,7 +68,7 @@ class App extends Component {
                 <div className={'container'}>
                     <h1 className={'text-center'}>Todo list</h1>
                     <ToDoFilters activeFilter={this.state.activeFilter} setFilter={this.changeFilter} isVisible={this.isFiltersVisible()}/>
-                    <ToDoAddFrom onAdd={this.onAdd}/>
+                    <ToDoAddForm onAdd={this.onAdd}/>
                     <ToDoList items={this.state.items} activeFilter={this.state.activeFilter} changeHandler={this.changeStatus}/>
                 </div>
             </div>
