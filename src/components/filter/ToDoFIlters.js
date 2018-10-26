@@ -1,23 +1,16 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
-
+import filters from '../../contstants';
 export default class ToDoFIlters extends Component {
     static propTypes = {
         activeFilter: PropTypes.string,
         setFilter: PropTypes.func,
         isVisible: PropTypes.bool
     };
-    clearFilters = () => {
-        this.props.setFilter(null);
-    };
 
-    setDoneFilter = () => {
-        this.props.setFilter('done');
-    };
-
-    setActiveFilter = () => {
-        this.props.setFilter('active');
+    setFilter = (filter) => {
+        this.props.setFilter(filter);
     };
 
     classNames = (btn) => {
@@ -28,15 +21,21 @@ export default class ToDoFIlters extends Component {
         return allClasses;
     };
 
+    renderButtons = () => {
+        return filters.map((filter) => {
+            return (
+                <button key={filter.name} className={this.classNames(filter.value)} onClick={()=>this.setFilter(filter.value)}>{filter.name}</button>
+            )
+        });
+    };
+
 
     render() {
         return (
             <section>
                 {this.props.isVisible &&
                     <nav className={'nav'}>
-                        <button className={this.classNames(null)} onClick={this.clearFilters}>All</button>
-                        <button className={this.classNames('done')} onClick={this.setDoneFilter}>Done</button>
-                        <button className={this.classNames('active')} onClick={this.setActiveFilter}>In Progress</button>
+                        {this.renderButtons()}
                     </nav>
                 }
             </section>
