@@ -5,16 +5,16 @@ import './styles.scss';
 export default class ToDoList extends Component {
     static propTypes = {
         items: PropTypes.array,
-        activeFilter: PropTypes.string
+        activeFilter: PropTypes.string,
+        changeHandler : PropTypes.func
     };
 
     static defaultProps = {
         activeFilter: ''
     };
 
-    clickTodo = (e) =>{
-        console.log(e.target);
-        console.log('click');
+    clickTodo = (value) =>{
+        this.props.changeHandler(value);
     };
 
     renderTodos = (items, filter) => {
@@ -23,7 +23,7 @@ export default class ToDoList extends Component {
         }).map((item) => {
             let classN = item.status === 'done'? 'done' : 'in-progress';
             return (
-                <li key={item.value} onClick={this.clickTodo} className={classN}>{item.value}</li>
+                <li key={item.value} onClick={()=>this.clickTodo(item.value)} className={classN}>{item.value}</li>
             )
         });
     }

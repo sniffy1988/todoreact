@@ -36,6 +36,10 @@ class App extends Component {
         })
     };
 
+    changeStatus = (value) => {
+        console.log(value);
+    };
+
     onAdd = (data)=> {
         let isUni = this.isUnique(data);
         if(isUni) {
@@ -66,7 +70,7 @@ class App extends Component {
                     <h1 className={'text-center'}>Todo list</h1>
                     <ToDoFilters activeFilter={this.state.activeFilter} setFilter={this.changeFilter}/>
                     <ToDoAddFrom onAdd={this.onAdd}/>
-                    <ToDoList items={this.state.items} activeFilter={this.state.activeFilter}/>
+                    <ToDoList items={this.state.items} activeFilter={this.state.activeFilter} changeHandler={this.changeStatus}/>
                 </div>
             </div>
         );
