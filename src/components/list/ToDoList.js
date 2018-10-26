@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import './styles.scss';
 
 export default class ToDoList extends Component {
-    state = {};
     static propTypes = {
         items: PropTypes.array,
         activeFilter: PropTypes.string
@@ -13,8 +12,10 @@ export default class ToDoList extends Component {
         activeFilter: ''
     };
 
-    renderTodos(items) {
-        return items.map(function (item) {
+    renderTodos(items, filter) {
+        return items.filter((item)=> {
+            return item.status === filter || filter === null;
+        }).map(function (item) {
             let classN = item.status === 'done'? 'done' : 'in-progress';
             return (
                 <li key={item.value} className={classN}>{item.value}</li>
@@ -25,7 +26,7 @@ export default class ToDoList extends Component {
     render() {
         return (
             <ul className={'mt-4 todo-list'}>
-                {this.renderTodos(this.props.items)}
+                {this.renderTodos(this.props.items, this.props.activeFilter)}
             </ul>
         )
     }
