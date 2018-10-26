@@ -5,20 +5,7 @@ import  ToDoList from './components/list/ToDoList';
 
 class App extends Component {
     state = {
-        items: [
-            {
-                value: 'Eat',
-                status: 'active'
-            },
-            {
-                value: 'Pray',
-                status: 'active'
-            },
-            {
-                value: 'Love',
-                status: 'done'
-            }
-        ],
+        items: [],
         activeFilter: null
     };
 
@@ -37,7 +24,15 @@ class App extends Component {
     };
 
     changeStatus = (value) => {
-        console.log(value);
+        let index = this.state.items.findIndex((item) => item.value === value);
+        if(index !== -1) {
+            this.setState(({items}) => {
+                items[index].status = items[index].status === 'done'? 'active' : 'done';
+                return {
+                    items
+                }
+            })
+        }
     };
 
     onAdd = (data)=> {
