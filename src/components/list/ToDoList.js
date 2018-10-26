@@ -12,13 +12,18 @@ export default class ToDoList extends Component {
         activeFilter: ''
     };
 
-    renderTodos(items, filter) {
+    clickTodo = (e) =>{
+        console.log(e.target);
+        console.log('click');
+    };
+
+    renderTodos = (items, filter) => {
         return items.filter((item)=> {
             return item.status === filter || filter === null;
-        }).map(function (item) {
+        }).map((item) => {
             let classN = item.status === 'done'? 'done' : 'in-progress';
             return (
-                <li key={item.value} className={classN}>{item.value}</li>
+                <li key={item.value} onClick={this.clickTodo} className={classN}>{item.value}</li>
             )
         });
     }
