@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ToDoFilters from './components/filter/ToDoFIlters';
+import ToDoFilters from './components/filter/ToDoFilters';
 import  ToDoAddForm from './components/addForm/ToDoAddForm';
 import  ToDoList from './components/list/ToDoList';
 
