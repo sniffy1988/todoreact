@@ -18,7 +18,8 @@ class App extends Component {
                 value: 'Love',
                 status: 'done'
             }
-        ]
+        ],
+        activeFilter: null
     };
 
     isUnique = (data)=> {
@@ -34,6 +35,7 @@ class App extends Component {
             this.setState((state)=> {
                 let newItems = state.items.push({
                     value: data,
+                    status: 'active'
                 });
                 return {
                     state : newItems
@@ -57,7 +59,7 @@ class App extends Component {
                     <h1 className={'text-center'}>Todo list</h1>
                     <ToDoFilters/>
                     <ToDoAddFrom onAdd={this.onAdd}/>
-                    <ToDoList items={this.state.items} />
+                    <ToDoList items={this.state.items} activeFilter={this.state.activeFilter}/>
                 </div>
             </div>
         );
