@@ -1,0 +1,18 @@
+.btn-add {
+  margin-left: 10px;
+}
+
+.form-text {
+
+  &.error {
+    color: red;
+  }
+}
+
+.add-form {
+  width: 100%;
+
+  .form-group {
+    width: 100%;
+  }
+}

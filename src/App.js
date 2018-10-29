@@ -1,28 +1,79 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import ToDoFilters from './components/filter/ToDoFilters';
+import  ToDoAddForm from './components/addForm/ToDoAddForm';
+import  ToDoList from './components/list/ToDoList';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+    state = {
+        items: [],
+        activeFilter: null
+    };
+
+    isUnique = (data)=> {
+        let oldItems = this.state.items;
+        let tempResult = oldItems.filter((item)=>{
+            return item.value === data;
+        });
+        return tempResult.length === 0;
+    };
+
+    changeFilter = (filter)=> {
+        this.setState({
+            activeFilter: filter
+        })
+    };
+
+    changeStatus = (value) => {
+        let index = this.state.items.findIndex((item) => item.value === value);
+        if(index !== -1) {
+            this.setState(({items}) => {
+                items[index].status = items[index].status === 'done'? 'active' : 'done';
+                return {
+                    items
+                }
+            })
+        }
+    };
+
+    onAdd = (data)=> {
+        let isUni = this.isUnique(data);
+        if(isUni) {
+            this.setState((state)=> {
+                let newItems = state.items.push({
+                    value: data,
+                    status: 'active'
+                });
+                return {
+                    state : newItems
+                }
+            });
+            return {
+                result: true
+            }
+        } else {
+            return {
+                result: false,
+                msg: 'This item already in list'
+            }
+        }
+    };
+
+    isFiltersVisible = ()=> {
+        return this.state.items.length > 0;
+    };
+
+    render() {
+        return (
+            <div className="App">
+                <div className={'container'}>
+                    <h1 className={'text-center'}>Todo list</h1>
+                    <ToDoFilters activeFilter={this.state.activeFilter} setFilter={this.changeFilter} isVisible={this.isFiltersVisible()}/>
+                    <ToDoAddForm onAdd={this.onAdd}/>
+                    <ToDoList items={this.state.items} activeFilter={this.state.activeFilter} changeHandler={this.changeStatus}/>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
